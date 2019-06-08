@@ -4,4 +4,4 @@ server:
   servlet:
     context-path: /jekins
 logging:
-  config: classpath: log/dev-log.xml
+  config: classpath:log/dev-log.xml
