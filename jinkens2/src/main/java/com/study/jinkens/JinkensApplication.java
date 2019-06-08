@@ -15,6 +15,6 @@ public class JinkensApplication {
     }
     @GetMapping("/hello")
     public String hello(){
-        return "hello world2222!";
+        return "hello world333!";
     }
 }
