@@ -6,6 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @SpringBootApplication
 @RestController
 public class JinkensApplication {
@@ -15,6 +18,7 @@ public class JinkensApplication {
     }
     @GetMapping("/hello")
     public String hello(){
-        return "hello world3334!";
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return "hello world!"+format.format(new Date());
     }
 }
