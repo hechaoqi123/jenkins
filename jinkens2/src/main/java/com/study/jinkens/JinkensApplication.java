@@ -10,15 +10,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @SpringBootApplication
-@RestController
+@Sl
 public class JinkensApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(JinkensApplication.class, args);
     }
-    @GetMapping("/hello")
-    public String hello(){
-        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return "hello world!"+format.format(new Date());
-    }
+
 }

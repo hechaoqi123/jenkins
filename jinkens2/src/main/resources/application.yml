@@ -3,3 +3,5 @@ server:
   port: 8888
   servlet:
     context-path: /jekins
+logging:
+  config: classpath: log/dev-log.xml
