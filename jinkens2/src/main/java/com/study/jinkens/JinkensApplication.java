@@ -10,9 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @SpringBootApplication
-@Sl
 public class JinkensApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(JinkensApplication.class, args);
     }
