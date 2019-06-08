@@ -146,7 +146,6 @@
     <logger name="com.study.jinkens.controller" level="debug"/>
     <!--配置日志输出级别，及输出源。必选项，且必须配置在appender下面-->
     <root level="info">
-        <appender-ref ref="console"/>
         <appender-ref ref="debug_file"/>
         <appender-ref ref="info_file"/>
         <appender-ref ref="warn_file"/>
