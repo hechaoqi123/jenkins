@@ -22,9 +22,10 @@ public class TestController {
     @GetMapping("/hello")
     public String hello(){
         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        log.debug(">>>>>启动打印日志:debug<<<<<");
-        log.info(">>>>>启动打印日志:info<<<<<");
-        log.error(">>>>>启动打印日志:error<<<<<");
+        log.debug(">>>>>打印DEBUG日志:debug<<<<<");
+        log.info(">>>>>打印INFO日志:info<<<<<");
+        log.warn(">>>>>打印INFO日志:info<<<<<");
+        log.error(">>>>>打印ERROR日志:error<<<<<");
         return "hello world!"+format.format(new Date());
     }
 }

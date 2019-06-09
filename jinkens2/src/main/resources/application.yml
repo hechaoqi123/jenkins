@@ -3,17 +3,8 @@ server:
   port: 8888
   servlet:
     context-path: /jekins
+spring: #SpringBoot启动时加载多个yml。yml的命名必须为application-xxx.yml
+   profiles:
+     active: logback #引入日志配置
 
-##简单的日志配置
-#logging:
-#  #path: /logs/jenkins
-#  file: jekins-dev.log
-#  level:
-#    root: INFO
-#  pattern:    #日期格式化   线程名称  日志级别  打印位置 日志内容  换行符
-#    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger : %msg %n"
-#    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger : %msg %n"
 
-#自定义日志配置
-logging:
-  config: classpath:log/logback-spring-dev.xml

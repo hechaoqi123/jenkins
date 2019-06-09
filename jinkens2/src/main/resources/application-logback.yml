@@ -1,0 +1,21 @@
+##简单的日志配置
+#logging:
+#  #path: /logs/jenkins
+#  file: jekins-dev.log
+#  level:
+#    root: INFO
+#  pattern:    #日期格式化   线程名称  日志级别  打印位置 日志内容  换行符
+#    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger : %msg %n"
+#    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger : %msg %n"
+
+#自定义日志配置
+#配置全局变量（原想把xml中定义的常量抽取出来放在此文件中。由于不知道这样是否规范所以暂未实施）
+#logger:
+#  contextName: logback
+#  rootPath: logs
+#  unifyFormat: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %file{10}.%line : %msg %n"
+#  colorFormat: "%black(%d{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %boldGreen([%thread])  %boldCyan(%file{10}.%line) : %boldMagenta(%msg) %n"
+#
+#导入配置文件
+logging:
+  config: classpath:log/logback-spring-dev.xml

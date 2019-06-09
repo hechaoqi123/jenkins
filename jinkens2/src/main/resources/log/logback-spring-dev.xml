@@ -6,33 +6,68 @@
 <!--此文件的文件名：spring推荐为logback-spring-xxx.xml-->
 <configuration  scan="true" scanPeriod="10 seconds">
     <!--logger上下文名称，默认为default。可以使用%contextName来打印上下文名称。可有可无-->
-    <contextName>logback</contextName>
+    <contextName>${logger.contextName}</contextName>
     <!-- 定义全局变量，定义的值会被插入到logger上下文中可以通过${}”来使用变量。 -->
-    <property name="log.path" value="logs" />
+    <!--日志根路径 rootPath-->
+    <property name="log.path" value="logs"/>
+    <!--统一日志格式-->
+    <property name="unifyFormat" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %file{10}.%line : %msg %n"/>
+    <!--控制台日志颜色渲染-->
+    <property name="unifyColorFormat" value="%black(%d{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %boldGreen([%thread])  %boldCyan(%file{10}.%line) : %boldMagenta(%msg) %n"/>
+    <!--统一字符集-->
+    <property name="unifyCharSet" value="UTF-8"/>
+    <!--日志归档大小-->
+    <property name="unifyMerger" value="100MB"/>
+    <!--日志保留时间：单位天-->
+    <property name="unifyMaxDate" value="7"/>
+    <!--日志输出位置,及其归档位置-->
+    <property name="DEBUG_FILE" value="${log.path}/debug.log"/>
+    <property name="DEBUG_PATH" value="${log.path}/debug/debug-%d{yyyy-MM-dd}.%i.log"/>
+    <property name="INFO_FILE" value="${log.path}/info.log"/>
+    <property name="INFO_PATH" value="${log.path}/info/info-%d{yyyy-MM-dd}.%i.log"/>
+    <property name="WARN_FILE" value="${log.path}/warn.log"/>
+    <property name="WARN_PATH" value="${log.path}/warn/warn-%d{yyyy-MM-dd}.%i.log"/>
+    <property name="ERROR_FILE" value="${log.path}/error.log"/>
+    <property name="ERROR_PATH" value="${log.path}/error/error-%d{yyyy-MM-dd}.%i.log"/>
+
+    <!--控制台日志-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!--过滤掉低于DEBUG级别的日志-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <!--日志输出格式-->
+        <encoder>
+            <!--彩色日志-->
+            <pattern>${unifyColorFormat}</pattern>
+            <charset>${unifyCharSet}</charset>
+        </encoder>
+    </appender>
+
 
     <!--DEBUG级别文件输出源：每天滚动一次或者文件大小大于100M时滚动一次-->
     <appender name="debug_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--日志位置-->
-        <file>${log.path}/debug.log</file>
-        <!--过滤掉低于INFO级别的日志-->
+        <file>${DEBUG_FILE}</file>
+        <!--过滤掉低于DEBUG级别的日志-->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
+            <level>DEBUG</level>
         </filter>
         <!--日志输出格式-->
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{10} : %msg %n</pattern>
-            <charset>UTF-8</charset>
+            <pattern>${unifyFormat}</pattern>
+            <charset>${unifyCharSet}</charset>
         </encoder>
         <!--滚动策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志归档-->
-            <fileNamePattern>${log.path}/debug/debug-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${DEBUG_PATH}</fileNamePattern>
             <!--文件最大大小-->
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>100MB</maxFileSize>
+                <maxFileSize>${unifyMerger}</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
             <!--文件保留天数-->
-            <maxHistory>1</maxHistory>
+            <maxHistory>${unifyMaxDate}</maxHistory>
         </rollingPolicy>
     </appender>
 
@@ -40,26 +75,26 @@
     <!--INFO级别文件输出源：每天滚动一次或者文件大小大于100M时滚动一次-->
     <appender name="info_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--日志位置-->
-        <file>${log.path}/info.log</file>
+        <file>${INFO_FILE}</file>
         <!--过滤掉低于INFO级别的日志-->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>INFO</level>
         </filter>
         <!--日志输出格式-->
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{10} : %msg %n</pattern>
-            <charset>UTF-8</charset>
+            <pattern>${unifyFormat}</pattern>
+            <charset>${unifyCharSet}</charset>
         </encoder>
         <!--滚动策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志归档-->
-            <fileNamePattern>${log.path}/info/info-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${INFO_PATH}</fileNamePattern>
             <!--文件最大大小-->
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>100MB</maxFileSize>
+                <maxFileSize>${unifyMerger}</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
             <!--文件保留天数-->
-            <maxHistory>1</maxHistory>
+            <maxHistory>${unifyMaxDate}</maxHistory>
         </rollingPolicy>
     </appender>
 
@@ -67,52 +102,52 @@
     <!--WARN级别文件输出源：每天滚动一次或者文件大小大于100M时滚动一次-->
     <appender name="warn_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--日志位置-->
-        <file>${log.path}/warn.log</file>
+        <file>${WARN_FILE}</file>
         <!--过滤掉低于INFO级别的日志-->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>WARN</level>
         </filter>
         <!--日志输出格式-->
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{10} : %msg %n</pattern>
-            <charset>UTF-8</charset>
+            <pattern>${unifyFormat}</pattern>
+            <charset>${unifyCharSet}</charset>
         </encoder>
         <!--滚动策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志归档-->
-            <fileNamePattern>${log.path}/warn/warn-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${WARN_PATH}</fileNamePattern>
             <!--文件最大大小-->
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>100MB</maxFileSize>
+                <maxFileSize>${unifyMerger}</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
             <!--文件保留天数-->
-            <maxHistory>1</maxHistory>
+            <maxHistory>${unifyMaxDate}</maxHistory>
         </rollingPolicy>
     </appender>
 
     <!--ERROR级别文件输出源：每天滚动一次或者文件大小大于100M时滚动一次-->
     <appender name="error_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--日志位置-->
-        <file>${log.path}/error.log</file>
+        <file>${ERROR_FILE}</file>
         <!--过滤掉低于INFO级别的日志-->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
         </filter>
         <!--日志输出格式-->
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{10} : %msg %n</pattern>
-            <charset>UTF-8</charset>
+            <pattern>${unifyFormat}</pattern>
+            <charset>${unifyCharSet}</charset>
         </encoder>
         <!--滚动策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志归档-->
-            <fileNamePattern>${log.path}/error/error-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${ERROR_PATH}</fileNamePattern>
             <!--文件最大大小-->
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>100MB</maxFileSize>
+                <maxFileSize>${unifyMerger}</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
             <!--文件保留天数-->
-            <maxHistory>1</maxHistory>
+            <maxHistory>${unifyMaxDate}</maxHistory>
         </rollingPolicy>
     </appender>
 
@@ -146,6 +181,7 @@
     <!--<logger name="com.study.jinkens.controller" level="debug"/>-->
     <!--配置日志输出级别，及输出源。必选项，且必须配置在appender下面-->
     <root level="info">
+        <appender-ref ref="console"/>
         <appender-ref ref="debug_file"/>
         <appender-ref ref="info_file"/>
         <appender-ref ref="warn_file"/>
