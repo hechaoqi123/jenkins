@@ -13,7 +13,7 @@
     <!--统一日志格式-->
     <property name="unifyFormat" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %file{10}.%line : %msg %n"/>
     <!--控制台日志颜色渲染-->
-    <property name="unifyColorFormat" value="%grey(%d{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %boldGreen([%thread])  %boldCyan(%file{10}.%line) : %boldMagenta(%msg) %n"/>
+    <property name="unifyColorFormat" value="%gray(%d{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %boldGreen([%thread])  %boldCyan(%file{10}.%line) : %boldMagenta(%msg) %n"/>
     <!--统一字符集-->
     <property name="unifyCharSet" value="UTF-8"/>
     <!--日志归档大小-->
